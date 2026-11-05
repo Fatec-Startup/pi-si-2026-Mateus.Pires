@@ -5,16 +5,12 @@ struct No
 {
     int valor;
     struct No *proximo;
+    struct No *anterior
 };
 typedef struct No lista;
 
 void inicializa(lista *cartas);
-
-void adiciona_ordenada(lista *cartas);
-
-int checar_lista(lista *cartas);
-
-void mostra_lista(lista *cartas);
+void menu(lista *cartas);
 
 int main()
 {
@@ -26,71 +22,11 @@ int main()
     }
 
     inicializa(cartas);
-
-    int opcao;
-
-    do
-    {
-        printf("\n=== MENU ===\n");
-        printf("1 - Adicionar ordenado\n");
-        printf("2 - Mostrar lista\n");
-        printf("0 - Sair\n");
-        printf("Opcao: ");
-        scanf("%d", &opcao);
-
-        switch (opcao)
-        {
-        case 1:
-            adiciona_ordenada(cartas);
-            break;
-        case 2:
-            mostra_lista(cartas);
-            break;
-        case 3:
-            checar_lista(cartas);
-            break;
-        case 0:
-            printf("Saindo...\n");
-            break;
-        default:
-            printf("Opcao invalida\n");
-        }
-
-    } while (opcao != 0);
-
+    menu(cartas);
     free(cartas);
 }
 
-void inicializa(lista *cartas)
-{
-    cartas->proximo = NULL;
-    printf("Cartas Inicializadas");
-}
-
-void adiciona_ordenada(lista *cartas)
-{
-    lista *novo = (lista *)malloc(sizeof(lista));
-    if (!novo)
-    {
-        printf("Impossivel alocar memoria\n");
-        exit(1);
-    }
-    printf("Digite um valor: ");
-    scanf("%d", &novo->valor);
-
-    lista *anterior = cartas;
-    lista *aux = cartas->proximo;
-
-    while (aux != NULL && aux->valor < novo->valor)
-    {
-        anterior = aux;
-        aux = aux->proximo;
-    }
-    novo->proximo = aux;
-    anterior->proximo = novo;
-}
-
-int checar_lista(lista *cartas)
+int checa_lista(lista *cartas)
 {
     if (cartas->proximo == NULL)
     {
@@ -102,18 +38,52 @@ int checar_lista(lista *cartas)
     }
 }
 
-void mostra_lista(lista *cartas)
+void inicializa(lista *cartas)
 {
-    if (checar_lista(cartas))
+    cartas->proximo = NULL;
+    printf("Cartas Inicializadas");
+}
+
+void menu(lista *cartas)
+{
+    int opcao;
+    system('clc');
+    do
     {
-        printf("a lista esta vazia\n");
+        printf("\n=== MENU ===\n");
+        printf("1 - Adicionar no inicio\n");
+        printf("0 - Sair\n");
+        printf("Opcao: ");
+        scanf("%d", &opcao);
+
+        switch (opcao)
+        {
+        case 1:
+            adiciona_inicio(cartas);
+            break;
+        case 0:
+            printf("Saindo...\n");
+            break;
+        default:
+            printf("Opcao invalida\n");
+        }
+
+    } while (opcao != 0);
+}
+
+void adiciona_inicio(lista *cartas)
+{
+    lista *novo = (lista *)malloc(sizeof(lista));
+
+    if (!novo)
+    {
+        printf("nao foi possivel alocar a memoria");
+        exit(1);
     }
+    printf("digite um valor para alocar: ");
+    scanf("%i", novo->valor);
     lista *aux = cartas->proximo;
-    printf("Cartas -> ");
-    while (aux != NULL)
-    {
-        printf("%i ", aux->valor);
-        aux = aux->proximo;
-    }
-    printf("NULL");
+    novo->anterior = cartas;
+    novo->proximo = aux;
+    aux->anterior = novo;
 }
