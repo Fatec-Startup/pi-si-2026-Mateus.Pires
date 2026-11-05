@@ -1,0 +1,12 @@
+1) Crie uma função para adicionar elementos de forma
+ordenada. Por exemplo, lista = 1, 20 e 38. Com a adição do
+elemento 28, a lista ficaria da seguinte forma: 1, 20, 28 e
+38. A lista precisa estar ordenada para incluir o elemento.
+
+2) Crie um programa com menu de opções com todas as
+funções implementadas até o momento com listas ligadas
+simples. Ao finalizar o programa, gravar o estado atual da
+lista em um arquivo texto.
+
+3) Ao finalizar o programa, gravar o estado atual da lista em
+um arquivo texto.
